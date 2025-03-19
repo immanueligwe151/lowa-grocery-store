@@ -1,0 +1,22 @@
+Personal Use License
+
+Copyright (c) Immanuel Igwe 2025
+
+Permission is granted to any individual to download, view, and use this software for personal and non-commercial purposes only.
+
+You may:
+- Use this software for personal projects.
+- Modify the software for personal use only.
+
+You may not:
+- Redistribute the software, original or modified, in any form.
+- Use this software for any commercial purpose.
+- Incorporate this software into any product, service, or project intended for sale or public release.
+- Publish modified versions of this software, either privately or publicly.
+
+This software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the author be liable for any claim, damages, or other liability.
+
+For any other use, including but not limited to redistribution, licensing, or commercial use, you must obtain prior written permission from the copyright holder.
+
+Immanuel Igwe
+immanueligwe@gmail.com
