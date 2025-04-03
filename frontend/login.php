@@ -3,14 +3,6 @@ session_start();
 
 include('./backend/connection.php');
 
-$sql = "SELECT category_name FROM `Category`";
-$result = $conn->query($sql);
-$categories = [];
-
-while ($row = $result->fetch_assoc()) {
-    $categories[] = $row;
-}
-
 $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
 ?>
 
@@ -20,12 +12,9 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lowa</title>
+        <title>Lowa | Login</title>
         <link rel="icon" href="https://i.postimg.cc/L87TFDYM/lowa-logo.png" type="image/x-icon">
         <link rel="stylesheet" href="./frontend/css/styles.css">
-        <script>
-            const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
-        </script>
     </head>
     <body class="home">
         <header>
@@ -40,26 +29,35 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                 <a class="nav-link">My Account</a>
                 <a class="nav-link">My Orders</a>
             <?php else: ?>
-                <a class="nav-link" href="./frontend/login">Login</a>
+                <a class="nav-link">Login</a>
             <?php endif; ?>
         </nav>
 
         <section>
-            <div id="dropdown-div">
-                <select id="dropdown-menu">
-                    <option value="" disabled selected>No category selected</option>
-                    <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['category_name']) ?>">
-                            <?= htmlspecialchars($category['category_name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <div>
+                <h3>Login</h3>
             </div>
+            <div>
+                <form>
+                    <div class="form-fields">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <p class="error-message" id="email-error"></p>
+                    </div>
 
-            <div id="item-div">
+                    <div class="form-fields">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                        <p class="error-message" id="password-error"></p>
+                    </div>
 
+                    <div>
+                        <h3>Don't have an account? <a href="./signup">Sign up here</a></h3>
+                    </div>
+
+                    <input type="submit" value="Log in">
+                </form>
             </div>
-            
         </section>
     </body>
     <script src="./frontend/js/script.js"></script>

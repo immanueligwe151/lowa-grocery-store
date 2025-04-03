@@ -1,0 +1,26 @@
+.item-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-price {
+    color: green;
+}
