@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include('./backend/connection.php');
+include('../backend/connection.php');
 
 $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
 ?>
@@ -23,7 +23,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         </header>
 
         <nav>
-            <a class="nav-link">Home</a>
+            <a class="nav-link" href="..">Home</a>
             <?php if ($loggedIn): ?>
                 <a class="nav-link">My Basket</a>
                 <a class="nav-link">My Account</a>
@@ -52,7 +52,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                     </div>
 
                     <div>
-                        <h3>Don't have an account? <a href="./signup">Sign up here</a></h3>
+                        <h3>Don't have an account? <a href="./signup.php">Sign up here</a></h3>
                     </div>
 
                     <input type="submit" value="Log in">

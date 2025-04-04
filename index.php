@@ -40,7 +40,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                 <a class="nav-link">My Account</a>
                 <a class="nav-link">My Orders</a>
             <?php else: ?>
-                <a class="nav-link" href="./frontend/login">Login</a>
+                <a class="nav-link" href="./frontend/login.php">Login</a>
             <?php endif; ?>
         </nav>
 
