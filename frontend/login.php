@@ -14,9 +14,9 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lowa | Login</title>
         <link rel="icon" href="https://i.postimg.cc/L87TFDYM/lowa-logo.png" type="image/x-icon">
-        <link rel="stylesheet" href="./frontend/css/styles.css">
+        <link rel="stylesheet" href="./css/styles.css">
     </head>
-    <body class="home">
+    <body class="login">
         <header>
             <img src="https://i.postimg.cc/pLZmDLvc/lowa-image.png" alt="lowa logo">
             <h4>The shop for all your grocery needs</h4>
@@ -38,7 +38,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                 <h3>Login</h3>
             </div>
             <div>
-                <form>
+                <form method="POST" action="../backend/auth_login.php">
                     <div class="form-fields">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
@@ -54,11 +54,19 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                     <div>
                         <h3>Don't have an account? <a href="./signup.php">Sign up here</a></h3>
                     </div>
+                    
+                    <div>
+                        <label for="captcha">Enter the characters shown:</label>
+                        <img id="captcha-image" src="" alt="CAPTCHA">
+                        <input type="text" id="captcha" name="captcha" required>
+                        <p class="error-message" id="captcha-error"></p>
+                        <button type="button" onclick="loadCaptcha()">Refresh CAPTCHA</button>
+                    </div>
 
                     <input type="submit" value="Log in">
                 </form>
             </div>
         </section>
     </body>
-    <script src="./frontend/js/script.js"></script>
+    <script src="./js/script.js"></script>
 </html>

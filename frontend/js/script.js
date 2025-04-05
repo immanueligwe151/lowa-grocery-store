@@ -7,7 +7,16 @@ function loadTemplate(page) {
         .catch(error => console.error("Error loading template:", error));
 }
 
+function loadCaptcha() {
+    fetch('../backend/generate_captcha.php')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('captcha-image').src = `../images/captcha-images/${data.image}?v=${Date.now()}`;
+        });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+    console.log('getting here');
     if (document.body.classList.contains("home")) {
         const categoryDropdown = document.getElementById("dropdown-menu");
         const itemDiv = document.getElementById("item-div");
@@ -62,6 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error("Fetch error:", error);
                 });
         });
+    }
+
+    if (document.body.classList.contains('login')) {
+        fetch('../backend/generate_captcha.php')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('captcha-image').src = `../images/captcha-images/${data.image}?v=${Date.now()}`;
+        });
+        console.log(`this is the url: ../images/captcha-images/${data.image}?v=${Date.now()}`);
     }
 
 });
