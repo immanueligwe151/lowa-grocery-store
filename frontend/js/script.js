@@ -16,7 +16,6 @@ function loadCaptcha() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log('getting here');
     if (document.body.classList.contains("home")) {
         const categoryDropdown = document.getElementById("dropdown-menu");
         const itemDiv = document.getElementById("item-div");
@@ -52,11 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
                                 const addButton = document.createElement("button");
                                 addButton.textContent = "Add to Basket";
                                 addButton.classList.add("add-to-basket");
-                                //addButton.dataset.itemName = item.name; // Store item name in button
+                                itemObject = {
+                                    name: item.name,
+                                    imageLink: item.image,
+                                    price: item.price
+                                };
                                 
-                                // Click event for "Add to Basket"
                                 addButton.addEventListener("click", function () {
-                                    //addToBasket(this.dataset.itemName);
+                                    addToBasket(JSON.stringify(itemObject));
                                 });
     
                                 itemCard.appendChild(addButton);
@@ -79,7 +81,40 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             document.getElementById('captcha-image').src = `../images/captcha-images/${data.image}?v=${Date.now()}`;
         });
-        console.log(`this is the url: ../images/captcha-images/${data.image}?v=${Date.now()}`);
+    }
+
+    if (userLoggedIn) {
+        updateBasketCount(basketQuantity);
     }
 
 });
+
+function updateBasketCount(count) {
+    let basketLinks = document.getElementsByClassName('my-basket-a');
+    Array.from(basketLinks).forEach(link => {
+        link.textContent = `My Basket(${count})`;
+    });
+}
+
+function addToBasket(itemObject) {
+    fetch('./backend/add_to_basket.php', {
+        method: 'POST',
+        body: itemObject,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            updateBasketCount(result.itemCount);  // Update the basket count in the navbar
+        } else {
+            alert("Failed to add item to basket");
+        }
+    })
+    .catch(error => {
+        console.error("Error adding item to basket:"/*, error*/);
+    });
+}

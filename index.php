@@ -25,6 +25,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         <link rel="stylesheet" href="./frontend/css/styles.css">
         <script>
             const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
+            const basketQuantity = <?= isset($_SESSION['basket']) ? count($_SESSION['basket']) : 0 ?>;
         </script>
     </head>
     <body class="home">
@@ -36,10 +37,10 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         <nav>
             <a class="nav-link">Home</a>
             <?php if ($loggedIn): ?>
-                <a class="nav-link">My Basket</a>
+                <a class="nav-link my-basket-a">My Basket</a>
                 <a class="nav-link">My Account</a>
                 <a class="nav-link">My Orders</a>
-                <a class="nav-link" href="./frontend/logout.php">Log out</a> <!-- for testing purposes -->
+                <a class="nav-link" href="./frontend/logout.php">Log out</a>
             <?php else: ?>
                 <a class="nav-link" href="./frontend/login.php">Login</a>
             <?php endif; ?>
@@ -65,6 +66,4 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
     </body>
     <script src="./frontend/js/script.js"></script>
 </html>
-<?php
-var_dump($_SESSION)
-?>
+<?php var_dump($_SESSION)?>
