@@ -7,16 +7,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correctCaptcha = $_SESSION['captcha_answer'] ?? '';
 
     if (strcasecmp($enteredCaptcha, $correctCaptcha) !== 0) {
-        echo json_encode(['success' => false, 'error' => 'Incorrect CAPTCHA.']);
-        exit;
+        $_SESSION['login_error'] = 'Incorrect CAPTCHA, please try again.';
+        header("Location: ../frontend/login.php");
+        exit();
     }
 
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
     if (empty($email) || empty($password)) {
-        echo json_encode(["success" => false, "error" => "Email and password are required."]);
-        exit;
+        $_SESSION['login_error'] = 'Email and password are both required.';
+        header("Location: ../frontend/login.php");
+        exit();
     }
 
     $stmt = $conn->prepare("SELECT customer_id, customer_password FROM `Customers` WHERE customer_email = ?");
@@ -33,10 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../index.php");
             exit();
         } else {
-            echo json_encode(["success" => false, "error" => "Invalid password."]);
+            $_SESSION['login_error'] = 'Your password is incorrect, please try again.';
+            header("Location: ../frontend/login.php");
+            exit();
         }
     } else {
-        echo json_encode(["success" => false, "error" => "No account found with that email."]);
+        $_SESSION['login_error'] = 'No account with that email was found, please try again.';
+        header("Location: ../frontend/login.php");
+        exit();
     }
 }
 ?>

@@ -39,6 +39,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                 <a class="nav-link">My Basket</a>
                 <a class="nav-link">My Account</a>
                 <a class="nav-link">My Orders</a>
+                <a class="nav-link" href="./frontend/logout.php">Log out</a> <!-- for testing purposes -->
             <?php else: ?>
                 <a class="nav-link" href="./frontend/login.php">Login</a>
             <?php endif; ?>
@@ -64,3 +65,6 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
     </body>
     <script src="./frontend/js/script.js"></script>
 </html>
+<?php
+var_dump($_SESSION)
+?>

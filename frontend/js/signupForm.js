@@ -1,4 +1,4 @@
-const { useState } = React;
+/* const { useState } = React;
 
 function SignupForm() {
   const [form, setForm] = useState({
@@ -63,7 +63,7 @@ function SignupForm() {
     });
 
     try {
-      const response = await fetch(".../backend/auth_signup.php", {
+      const response = await fetch("../backend/auth_signup.php", {
         method: "POST",
         body: formData
       });
@@ -103,10 +103,10 @@ function SignupForm() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('signup-root')).render(<SignupForm />);
+ReactDOM.createRoot(document.getElementById('signup-root')).render(<SignupForm />); */
 
 
-/* const { useState } = React;
+const { useState } = React;
 
 function SignupForm() {
   const [form, setForm] = useState({
@@ -118,36 +118,37 @@ function SignupForm() {
   });
 
   const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState(null);
 
   const fieldLabels = {
     name: "Name:",
     number: "Phone Number:",
     email: "Email:",
-    password1: "Password",
-    password2: "Confirm Password"
+    password1: "Password:",
+    password2: "Confirm Password:"
   };
 
-  const validate = () => {
+  const validate = (updatedForm) => {
     const newErrors = {};
     let isValid = true;
   
-    if (!/^[A-Za-z\s]+$/.test(form.name)) {
+    if (!/^[A-Za-z\s]+$/.test(updatedForm.name)) {
       newErrors.name = "Only letters allowed";
       isValid = false;
     }
-    if (!/^\d{7,15}$/.test(form.number)) {
+    if (!/^\d{7,15}$/.test(updatedForm.number)) {
       newErrors.number = "Enter a valid phone number";
       isValid = false;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(updatedForm.email)) {
       newErrors.email = "Invalid email";
       isValid = false;
     }
-    if (form.password1.length < 6) {
+    if (updatedForm.password1.length < 6) {
       newErrors.password1 = "At least 6 characters";
       isValid = false;
     }
-    if (form.password2 !== form.password1) {
+    if (updatedForm.password2 !== updatedForm.password1) {
       newErrors.password2 = "Passwords do not match";
       isValid = false;
     }
@@ -158,13 +159,16 @@ function SignupForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    validate(name, value);
+    setForm(prevForm => {
+      const updatedForm = { ...prevForm, [name]: value };
+      validate(updatedForm);
+      return updatedForm;
+    });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate(form)) return;
 
     const formData = new FormData();
     Object.entries(form).forEach(([key, value]) => {
@@ -172,17 +176,18 @@ function SignupForm() {
     });
 
     try {
-      const response = await fetch("/backend/auth_signup.php", {
+      const response = await fetch("../backend/auth_signup.php", {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: "include"
       });
 
       const result = await response.json();
       if (result.success) {
-        alert("You have succesfully created your account!");
-        // to sign user in and redirect them to home page
+        alert("You have successfully created your account!");
+        window.location.href = result.redirect;
       } else {
-        alert(result.message || "Signup failed.");
+        setServerError(result.message || "Signup failed.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -191,7 +196,7 @@ function SignupForm() {
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       { }
       {Object.entries(fieldLabels).map(([field, label]) => (
         <div className="form-fields" key={field}>
@@ -205,8 +210,14 @@ function SignupForm() {
             required
           />
           {errors[field] && <p className="error-message">{errors[field]}</p>}
+
+          <div>
+            <h3>Already have an account? <a href="./login.php">Log in here</a></h3>
+          </div>
         </div>
       ))}
+
+      {serverError && <p className="server-error">{serverError}</p>} {}
 
       <input type="submit" value="Sign Up" />
     </form>
@@ -214,4 +225,4 @@ function SignupForm() {
 }
 
 ReactDOM.createRoot(document.getElementById('signup-root')).render(<SignupForm />);
- */
+ 

@@ -2,8 +2,8 @@
 session_start();
 
 include('../backend/connection.php');
-
-$loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
+$error_message = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : null;
+unset($_SESSION['login_error'])
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +62,10 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                         <p class="error-message" id="captcha-error"></p>
                         <button type="button" onclick="loadCaptcha()">Refresh CAPTCHA</button>
                     </div>
+
+                    <?php if ($error_message): ?>
+                        <p class="error-message"><?php echo $error_message; ?></p>
+                    <?php endif; ?>
 
                     <input type="submit" value="Log in">
                 </form>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include(__DIR__ . '/connection.php');
 
 header('Content-Type: application/json');
@@ -7,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $number = trim($_POST['number'] ?? '');
     $email = trim($_POST['email'] ?? '');
-    $password1 = $_POST['password-1'] ?? '';
-    $password2 = $_POST['password-2'] ?? '';
+    $password1 = $_POST['password1'] ?? '';
+    $password2 = $_POST['password2'] ?? '';
 
     if ($password1 !== $password2) {
         echo json_encode(['success' => false, 'message' => 'Passwords do not match']);
@@ -36,10 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_logged_in'] = true;
         $_SESSION['customer_id'] = $customerId;
 
-        header("Location: ../index.php");
+        echo json_encode(['success' => true, 'redirect' => '../index.php']);
         exit();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Database error: ' . $conn->error]);
+        if ($conn->errno == 1062) { // if email already exists in database
+            echo json_encode(['success' => false, 'message' => 'An account already exists with this email. Please try another one.']);
+        } else { // unknown db error
+            echo json_encode(['success' => false, 'message' => 'There was an error with signing up. Please try again.']);
+        }
     }
 
     $stmt->close();
