@@ -70,4 +70,3 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
     </body>
     <script src="./frontend/js/script.js"></script>
 </html>
-<?php var_dump($_SESSION)?>

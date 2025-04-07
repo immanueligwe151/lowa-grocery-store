@@ -28,7 +28,7 @@ $basket = $_SESSION['basket'] ?? [];
 
         <nav>
             <a class="nav-link" href="..">Home</a>
-            <a class="nav-link my-basket-a" href="./frontend/my_basket.php">My Basket</a>
+            <a class="nav-link my-basket-a">My Basket</a>
             <a class="nav-link">My Account</a>
             <a class="nav-link">My Orders</a>
             <a class="nav-link" href="./frontend/logout.php">Log out</a>
@@ -50,10 +50,31 @@ $basket = $_SESSION['basket'] ?? [];
 
         <div id="dialog">
             <div id="dialog-box">
+                <span class="close-btn" onclick="closeDialog();">&times;</span>
+                <form method="POST" action="../backend/place_order.php">
+                    <div class="form-fields">
+                        <fieldset>
+                            <legend>What type of order is this?</legend>
+                            <input type="radio" value="pickup" name="order-type" id="pickup" required>
+                            <label for="pickup">Pickup</label>
+                            <br>
+                            <input type="radio" value="delivery" name="order-type" id="delivery" required>
+                            <label for="delivery">Delivery</label>
+                        </fieldset>
+                    </div>
+                    <div class="form-fields" id="delivery-details">
+                        <label for="del-address">Enter your first line of address</label>
+                        <input type="text" id="del-address" name="del-address">
+                        <br>
+                        <label for="del-postcode">Enter your postcode</label>
+                        <input type="text" id="del-postcode" name="del-postcode">
+                    </div>
+
+                    <input type="submit" value="Place Order">
+                </form>
 
             </div>
         </div>
     </body>
     <script src="./js/script.js"></script>
 </html>
-<?php var_dump($_SESSION)?>

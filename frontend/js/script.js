@@ -212,19 +212,16 @@ function updateItemQuantity(itemIndex, updateQuantity) {
 }
 
 function placeOrder(){
-    console.log('reaching here');
     const dialog = document.getElementById('dialog');
-    dialog.style.display = 'flex';
+    dialog.style.display = 'block';
 }
 
-function closeDialog(dialogId, boxId) {
-    document.getElementById(dialogId).style.display = 'none';
-    let dialogBox = document.getElementById(boxId);
-    dialogBox.classList.remove('addon-dialog-content');
-    dialogBox.classList.add('sub-menu-dialog-content');
-    resetValues();
-
-    if (boxId === 'payment-block') {
-        document.getElementById('payment-block').innerHTML = `<span class="close-btn" id="close-dialog-btn" onclick="closeDialog('payment-dialog', 'payment-block');">&times;</span>`;
-    }
+function closeDialog() {
+    document.getElementById('dialog').style.display = 'none';
 };
+
+window.addEventListener('click', function(event){
+    if (event.target === document.getElementById('dialog')) {
+        closeDialog();
+    }
+});
