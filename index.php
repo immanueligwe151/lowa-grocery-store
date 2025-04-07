@@ -25,7 +25,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         <link rel="stylesheet" href="./frontend/css/styles.css">
         <script>
             const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
-            const basketQuantity = <?= isset($_SESSION['basket']) ? count($_SESSION['basket']) : 0 ?>;
+            const basketQuantity = <?= isset($_SESSION['basket']) ? array_sum(array_column($_SESSION['basket'], 'quantity')) : 0 ?>;
         </script>
     </head>
     <body class="home">
@@ -37,7 +37,7 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
         <nav>
             <a class="nav-link">Home</a>
             <?php if ($loggedIn): ?>
-                <a class="nav-link my-basket-a">My Basket</a>
+                <a class="nav-link my-basket-a" href="./frontend/my_basket.php">My Basket</a>
                 <a class="nav-link">My Account</a>
                 <a class="nav-link">My Orders</a>
                 <a class="nav-link" href="./frontend/logout.php">Log out</a>
@@ -45,6 +45,10 @@ $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
                 <a class="nav-link" href="./frontend/login.php">Login</a>
             <?php endif; ?>
         </nav>
+
+        <section>
+            <h2>Please select a category from below</h2>
+        </section>
 
         <section>
             <div id="dropdown-div">

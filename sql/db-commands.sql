@@ -37,6 +37,8 @@ CREATE TABLE `OrderItems` (
 	item_id int PRIMARY KEY AUTO_INCREMENT,
     order_id VARCHAR(8) NOT NULL,
 	item_name VARCHAR(20) NOT NULL,
+    item_quantity INT NOT NULL,
+    subtotal FLOAT NOT NULL,
     FOREIGN KEY (order_id) REFERENCES `Orders`(order_id),
     FOREIGN KEY (item_name) REFERENCES `CategoryItems`(item_name)
 );

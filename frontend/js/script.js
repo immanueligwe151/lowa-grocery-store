@@ -51,13 +51,13 @@ document.addEventListener("DOMContentLoaded", function () {
                                 const addButton = document.createElement("button");
                                 addButton.textContent = "Add to Basket";
                                 addButton.classList.add("add-to-basket");
-                                itemObject = {
-                                    name: item.name,
-                                    imageLink: item.image,
-                                    price: item.price
-                                };
                                 
                                 addButton.addEventListener("click", function () {
+                                    itemObject = {
+                                        name: item.name,
+                                        imageLink: item.image,
+                                        price: item.price
+                                    };
                                     addToBasket(JSON.stringify(itemObject));
                                 });
     
@@ -83,6 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    if (document.body.classList.contains('my-basket')) {
+        loadBasket();
+    }
+
     if (userLoggedIn) {
         updateBasketCount(basketQuantity);
     }
@@ -97,6 +101,7 @@ function updateBasketCount(count) {
 }
 
 function addToBasket(itemObject) {
+    console.log(itemObject);
     fetch('./backend/add_to_basket.php', {
         method: 'POST',
         body: itemObject,
@@ -118,3 +123,108 @@ function addToBasket(itemObject) {
         console.error("Error adding item to basket:"/*, error*/);
     });
 }
+
+function loadBasket(){
+    const basketDiv = document.getElementById('basket-div');
+    const totalDiv = document.getElementById('total-div');
+    let totalPrice = 0;
+    basketDiv.innerHTML = '';
+    totalDiv.innerHTML = '';
+    
+    if (basket.length > 0) {
+        let count = 0;
+        basket.forEach(item => {
+            const itemDiv = document.createElement('div');
+            const productDiv = document.createElement('div');
+            const subtotalDiv = document.createElement('div');
+
+            itemDiv.classList.add('item-div');
+            productDiv.classList.add('product-div');
+            subtotalDiv.classList.add('subtotal-div');
+
+            productDiv.innerHTML = `
+                <div> <img class="basket-img" src="${item.imageLink}" alt="${item.name}"> </div>
+
+                <div class="product-details-div">
+                    <h4>${item.name}</h4>
+                    <h5>${item.price}</h5>
+                    <h5>Quantity: ${item.quantity}</h5>
+                </div>
+
+                <div>
+                    <button class="add-remove-button" onclick="updateItemQuantity(${count}, ${-1});">-</button>
+                    <button class="add-remove-button" onclick="updateItemQuantity(${count}, ${1});">+</button>
+                </div>
+            `;
+
+            let subtotal = item.price * item.quantity;
+            totalPrice += subtotal;
+
+            subtotalDiv.innerHTML = `
+                <h5>Subtotal = £${subtotal.toFixed(2)}</h5>
+            `;
+
+            itemDiv.appendChild(productDiv);
+            itemDiv.appendChild(subtotalDiv);
+            basketDiv.appendChild(itemDiv);
+
+            count++;
+        });
+
+        totalDiv.innerHTML = `
+            <h4>Total: £${totalPrice.toFixed(2)}</h4>
+            <button class="place-order-btn" onclick="placeOrder();">Place Order</button>
+        `;
+
+    } else {
+        const noItems = document.createElement('h4');
+        noItems.classList.add('no-items');
+        noItems.innerText = "No items have been added to the basket";
+        basketDiv.appendChild(noItems);
+
+    }
+}
+
+function updateItemQuantity(itemIndex, updateQuantity) {
+    basket[itemIndex].quantity += updateQuantity;
+    if (basket[itemIndex].quantity === 0) {
+        basket.splice(itemIndex, 1);
+    }
+
+    fetch('../backend/update_basket.php', {
+        method: 'POST',
+        body: JSON.stringify(basket),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            loadBasket();
+            updateBasketCount(result.newQuantity)
+        } else {
+            alert("Failed to update basket.");
+        }
+    })
+    .catch(error => console.error("Error updating basket:", error));
+}
+
+function placeOrder(){
+    console.log('reaching here');
+    const dialog = document.getElementById('dialog');
+    dialog.style.display = 'flex';
+}
+
+function closeDialog(dialogId, boxId) {
+    document.getElementById(dialogId).style.display = 'none';
+    let dialogBox = document.getElementById(boxId);
+    dialogBox.classList.remove('addon-dialog-content');
+    dialogBox.classList.add('sub-menu-dialog-content');
+    resetValues();
+
+    if (boxId === 'payment-block') {
+        document.getElementById('payment-block').innerHTML = `<span class="close-btn" id="close-dialog-btn" onclick="closeDialog('payment-dialog', 'payment-block');">&times;</span>`;
+    }
+};
