@@ -87,6 +87,51 @@ document.addEventListener("DOMContentLoaded", function () {
         loadBasket();
     }
 
+    if (document.body.classList.contains('my-orders')) {
+        const orders = document.querySelectorAll('.order');
+
+        orders.forEach(order => {
+            const toggleBtn = order.querySelector('.toggle-order');
+            const detailsDiv = order.querySelector('.order-details');
+            let loaded = false;
+
+            toggleBtn.addEventListener('click', () => {
+                if (detailsDiv.style.display === 'none') {
+                    detailsDiv.style.display = 'block';
+
+                    if (!loaded) {
+                        const orderId = order.getAttribute('data-order-id');
+
+                        fetch('../backend/get_orders.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: `order_id=${encodeURIComponent(orderId)}`
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                detailsDiv.innerHTML = '';
+                                data.items.forEach(item => {
+                                    const itemDiv = document.createElement('div');
+                                    itemDiv.innerHTML = `
+                                        <p><strong>${item.item_name}</strong> - Quantity: ${item.item_quantity}, Subtotal: £${item.subtotal.toFixed(2)}</p>
+                                    `;
+                                    detailsDiv.appendChild(itemDiv);
+                                });
+                            } else {
+                                detailsDiv.innerHTML = `<p>Error loading items.</p>`;
+                            }
+                        });
+
+                        loaded = true;
+                    }
+                } else {
+                    detailsDiv.style.display = 'none';
+                }
+            });
+        });
+    }
+
     if (userLoggedIn) {
         updateBasketCount(basketQuantity);
     }

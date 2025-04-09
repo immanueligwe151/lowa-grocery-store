@@ -43,8 +43,8 @@ if (isset($_SESSION['order_success'])) {
             <a class="nav-link">Home</a>
             <?php if ($loggedIn): ?>
                 <a class="nav-link my-basket-a" href="./frontend/my_basket.php">My Basket</a>
-                <a class="nav-link">My Account</a>
-                <a class="nav-link">My Orders</a>
+                <a class="nav-link" href="./frontend/my_account.php">My Account</a>
+                <a class="nav-link" href="./frontend/my_orders.php">My Orders</a>
                 <a class="nav-link" href="./frontend/logout.php">Log out</a>
             <?php else: ?>
                 <a class="nav-link" href="./frontend/login.php">Login</a>
