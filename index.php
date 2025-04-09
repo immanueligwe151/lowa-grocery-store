@@ -12,6 +12,11 @@ while ($row = $result->fetch_assoc()) {
 }
 
 $loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
+
+if (isset($_SESSION['order_success'])) {
+    echo "<script>alert('" . addslashes($_SESSION['order_success']) . "');</script>";
+    unset($_SESSION['order_success']);
+}
 ?>
 
 <!DOCTYPE html>

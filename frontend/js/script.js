@@ -172,7 +172,7 @@ function loadBasket(){
         });
 
         totalDiv.innerHTML = `
-            <h4>Total: £${totalPrice.toFixed(2)}</h4>
+            <h4 id="total-price-h4">Total: £${totalPrice.toFixed(2)}</h4>
             <button class="place-order-btn" onclick="placeOrder();">Place Order</button>
         `;
 
@@ -214,7 +214,11 @@ function updateItemQuantity(itemIndex, updateQuantity) {
 function placeOrder(){
     const dialog = document.getElementById('dialog');
     dialog.style.display = 'block';
+    document.getElementById('total-price').value = parseFloat(document.getElementById('total-price-h4').innerText.slice(8));
+    console.log(document.getElementById('total-price').value);
 }
+
+
 
 function closeDialog() {
     document.getElementById('dialog').style.display = 'none';

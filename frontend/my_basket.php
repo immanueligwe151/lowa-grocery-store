@@ -70,6 +70,8 @@ $basket = $_SESSION['basket'] ?? [];
                         <input type="text" id="del-postcode" name="del-postcode">
                     </div>
 
+                    <input type="hidden" name="total-price" id="total-price" value="">
+
                     <input type="submit" value="Place Order">
                 </form>
 
