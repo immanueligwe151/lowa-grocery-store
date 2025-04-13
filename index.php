@@ -42,7 +42,7 @@ if (isset($_SESSION['order_success'])) {
         </header>
 
         <nav>
-            <a class="nav-link">Home</a>
+            <a class="nav-link selected">Home</a>
             <?php if ($loggedIn): ?>
                 <a class="nav-link my-basket-a" href="./frontend/my_basket.php">My Basket</a>
                 <a class="nav-link" href="./frontend/my_account.php">My Account</a>

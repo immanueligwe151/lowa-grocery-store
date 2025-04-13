@@ -2,8 +2,12 @@
 session_start();
 
 include('../backend/connection.php');
-$error_message = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : null;
-unset($_SESSION['login_error'])
+$email_error = isset($_SESSION['email_error']) ? $_SESSION['email_error'] : null;
+unset($_SESSION['email_error']);
+$password_error = isset($_SESSION['password_error']) ? $_SESSION['password_error'] : null;
+unset($_SESSION['password_error']);
+$captcha_error = isset($_SESSION['captcha_error']) ? $_SESSION['captcha_error'] : null;
+unset($_SESSION['captcha_error'])
 ?>
 
 <!DOCTYPE html>
@@ -26,52 +30,47 @@ unset($_SESSION['login_error'])
 
         <nav>
             <a class="nav-link" href="..">Home</a>
-            <?php if ($loggedIn): ?>
-                <a class="nav-link">My Basket</a>
-                <a class="nav-link">My Account</a>
-                <a class="nav-link">My Orders</a>
-            <?php else: ?>
-                <a class="nav-link">Login</a>
-            <?php endif; ?>
+            <a class="nav-link selected">Login</a>
         </nav>
 
         <section>
-            <div>
-                <h3>Login</h3>
-            </div>
-            <div>
-                <form method="POST" action="../backend/auth_login.php">
-                    <div class="form-fields">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                        <p class="error-message" id="email-error"></p>
-                    </div>
+            <h2>Login</h2>
+        </section>
 
-                    <div class="form-fields">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                        <p class="error-message" id="password-error"></p>
-                    </div>
-
-                    <div>
-                        <h3>Don't have an account? <a href="./signup.php">Sign up here</a></h3>
-                    </div>
-                    
-                    <div>
-                        <label for="captcha">Enter the characters shown:</label>
-                        <img id="captcha-image" src="" alt="CAPTCHA">
-                        <input type="text" id="captcha" name="captcha" required>
-                        <p class="error-message" id="captcha-error"></p>
-                        <button type="button" onclick="loadCaptcha()">Refresh CAPTCHA</button>
-                    </div>
-
-                    <?php if ($error_message): ?>
-                        <p class="error-message"><?php echo $error_message; ?></p>
+        <section>
+            <form method="POST" action="../backend/auth_login.php">
+                <div class="form-fields">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <?php if ($email_error): ?>
+                        <p class="error-message"><?php echo $email_error; ?></p>
                     <?php endif; ?>
+                </div>
 
-                    <input type="submit" value="Log in">
-                </form>
-            </div>
+                <div class="form-fields">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <?php if ($password_error): ?>
+                        <p class="error-message"><?php echo $password_error; ?></p>
+                    <?php endif; ?>
+                </div>
+
+                <div style="text-align: center;">
+                    <h3>Don't have an account? <a href="./signup.php">Sign up here</a></h3>
+                </div>
+                
+                <div id="captcha-div">
+                    <label for="captcha">Enter the characters shown:</label>
+                    <img id="captcha-image" src="" alt="CAPTCHA">
+                    <input type="text" id="captcha" name="captcha" placeholder="Enter CAPTCHA here"required>
+                    <?php if ($captcha_error): ?>
+                        <p class="error-message"><?php echo $captcha_error; ?></p>
+                    <?php endif; ?>
+                    <button type="button" id="captcha-button" onclick="loadCaptcha()">Refresh CAPTCHA</button>
+                </div>
+
+                <input type="submit" class="form-submit" value="Log in">
+            </form>
         </section>
     </body>
     <script src="./js/script.js"></script>

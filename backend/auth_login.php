@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correctCaptcha = $_SESSION['captcha_answer'] ?? '';
 
     if (strcasecmp($enteredCaptcha, $correctCaptcha) !== 0) {
-        $_SESSION['login_error'] = 'Incorrect CAPTCHA, please try again.';
+        $_SESSION['captcha_error'] = 'Incorrect CAPTCHA, please try again.';
         header("Location: ../frontend/login.php");
         exit();
     }
@@ -15,8 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    if (empty($email) || empty($password)) {
-        $_SESSION['login_error'] = 'Email and password are both required.';
+    if (empty($email)) {
+        $_SESSION['email_error'] = 'Email and password are both required.';
+        header("Location: ../frontend/login.php");
+        exit();
+    }
+
+    if (empty($password)) {
+        $_SESSION['password_error'] = 'Email and password are both required.';
         header("Location: ../frontend/login.php");
         exit();
     }
@@ -35,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../index.php");
             exit();
         } else {
-            $_SESSION['login_error'] = 'Your password is incorrect, please try again.';
+            $_SESSION['password_error'] = 'Your password is incorrect, please try again.';
             header("Location: ../frontend/login.php");
             exit();
         }
     } else {
-        $_SESSION['login_error'] = 'No account with that email was found, please try again.';
+        $_SESSION['email_error'] = 'No account with that email was found, please try again.';
         header("Location: ../frontend/login.php");
         exit();
     }
