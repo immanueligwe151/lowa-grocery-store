@@ -26,6 +26,8 @@ while ($row = $result->fetch_assoc()) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lowa</title>
+        <meta name="description" content="Lowa, an online grocery store for lower prices and higher savings.">
+        <meta name="keywords" content="grocery, online grocery shopping, cheap, low prices, delivery, pickup, Lowa">
         <link rel="icon" href="https://i.postimg.cc/L87TFDYM/lowa-logo.png" type="image/x-icon">
         <link rel="stylesheet" href="./css/styles.css">
         <script>
