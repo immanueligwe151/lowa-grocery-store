@@ -130,7 +130,7 @@ form {
     align-items: center;
 }
 
-.form-fields {
+.form-fields, .account-details {
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -188,6 +188,17 @@ form {
     padding-left: 20px;
 }
 
+.account-details h3, .account-details h5 {
+    margin: 0px;
+    padding: 4px;
+}
+
+#account-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 

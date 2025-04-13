@@ -41,16 +41,16 @@ $userDetails = $result->fetch_assoc();
         <nav>
             <a class="nav-link" href="..">Home</a>
             <a class="nav-link my-basket-a" href="my_basket.php">My Basket</a>
-            <a class="nav-link">My Account</a>
-            <a class="nav-link">My Orders</a>
-            <a class="nav-link" href="./frontend/logout.php">Log out</a>
+            <a class="nav-link selected">My Account</a>
+            <a class="nav-link" href="my_orders.php">My Orders</a>
+            <a class="nav-link" href="logout.php">Log out</a>
         </nav>
 
         <section>
             <h2>My Account</h2>
         </section>
 
-        <section>
+        <section id="account-page">
             <div class="account-details">
                 <h3>Name</h3>
                 <h5><?php echo htmlspecialchars($userDetails['customer_name']); ?></h5>

@@ -30,10 +30,10 @@ $basket = $_SESSION['basket'] ?? [];
 
         <nav>
             <a class="nav-link" href="..">Home</a>
-            <a class="nav-link my-basket-a">My Basket</a>
+            <a class="nav-link my-basket-a selected">My Basket</a>
             <a class="nav-link" href="my_account.php">My Account</a>
-            <a class="nav-link">My Orders</a>
-            <a class="nav-link" href="./frontend/logout.php">Log out</a>
+            <a class="nav-link" href="my_orders.php">My Orders</a>
+            <a class="nav-link" href="logout.php">Log out</a>
         </nav>
 
         <section>
