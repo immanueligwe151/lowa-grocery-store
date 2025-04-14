@@ -54,8 +54,9 @@ $basket = $_SESSION['basket'] ?? [];
             <div id="dialog-box">
                 <span class="close-btn" onclick="closeDialog();">&times;</span>
                 <form method="POST" action="../backend/place_order.php">
+                    <h2 style="text-align: left;">Place order</h2>
                     <div class="form-fields">
-                        <fieldset>
+                        <fieldset id="type-order">
                             <legend>What type of order is this?</legend>
                             <input type="radio" value="pickup" name="order-type" id="pickup" required>
                             <label for="pickup">Pickup</label>
@@ -68,13 +69,14 @@ $basket = $_SESSION['basket'] ?? [];
                         <label for="del-address">Enter your first line of address</label>
                         <input type="text" id="del-address" name="del-address">
                         <br>
+                        <br>
                         <label for="del-postcode">Enter your postcode</label>
                         <input type="text" id="del-postcode" name="del-postcode">
                     </div>
 
                     <input type="hidden" name="total-price" id="total-price" value="">
 
-                    <input type="submit" value="Place Order">
+                    <input type="submit" class="form-submit" value="Place Order">
                 </form>
 
             </div>

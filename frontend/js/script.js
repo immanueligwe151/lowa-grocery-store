@@ -196,7 +196,7 @@ function loadBasket(){
                     <h5>Quantity: ${item.quantity}</h5>
                 </div>
 
-                <div>
+                <div class="add-buttons-div">
                     <button class="add-remove-button" onclick="updateItemQuantity(${count}, ${-1});">-</button>
                     <button class="add-remove-button" onclick="updateItemQuantity(${count}, ${1});">+</button>
                 </div>
@@ -225,6 +225,7 @@ function loadBasket(){
         const noItems = document.createElement('h4');
         noItems.classList.add('no-items');
         noItems.innerText = "No items have been added to the basket";
+        noItems.style.textAlign = "center";
         basketDiv.appendChild(noItems);
 
     }
@@ -263,7 +264,23 @@ function placeOrder(){
     console.log(document.getElementById('total-price').value);
 }
 
+document.getElementById('type-order').addEventListener('change', (event) => {
+    showDeliveryDetails(event);
+})
 
+function showDeliveryDetails(event){
+    const deliveryDetailsDiv = document.getElementById('delivery-details');
+
+    if (event.target.value === 'pickup') {
+        deliveryDetailsDiv.style.display = 'none';
+        document.getElementById('del-address').required = false;
+        document.getElementById('del-postcode').required = false;
+    } else {
+        deliveryDetailsDiv.style.display = 'block';
+        document.getElementById('del-address').required = true;
+        document.getElementById('del-postcode').required = true;
+    }
+}
 
 function closeDialog() {
     document.getElementById('dialog').style.display = 'none';

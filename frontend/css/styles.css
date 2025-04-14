@@ -184,8 +184,8 @@ form {
 }
 
 .form-submit {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 35px;
+    padding-left: 35px;
 }
 
 .account-details h3, .account-details h5 {
@@ -205,14 +205,77 @@ form {
 
 
 
+
+
 .basket-img {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     object-fit: cover;
 }
 
 .item-div {
     border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 35%;
+    min-width: 350px;
+    max-width: 500px;
+    background-color: #C0FF8F;
+    border-radius: 3px;
+}
+
+.product-div {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.product-details-div {
+    width: 30%;
+    margin-right: 100px;
+    margin-left: 20px;
+    align-self: flex-start;
+}
+
+.product-details-div h4, .product-details-div h5 {
+    margin: 0px;
+    padding: 3px 0px 3px 0px;
+}
+
+.add-buttons-div {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    justify-self: flex-end;
+}
+
+.add-remove-button {
+    padding: 1px;
+    margin: 5px;
+    border: none;
+    background-color: transparent;
+    font-size: larger;
+    font-weight: 500;
+}
+
+.subtotal-div {
+    text-align: right;
+}
+
+#basket-div {
+    padding: 10px;
+    justify-items: center;
+}
+
+#total-div {
+    text-align: right;
+    justify-self: center;
+    min-width: 350px;
+    width: 35%;
+    max-width: 500px;
 }
 
 
@@ -234,10 +297,29 @@ form {
 }
 
 #dialog-box {
-    background-color: #088ceb;
+    background-color: #75c599;
     margin: 15% auto;
     padding: 20px;
-    border-radius: 0px;
+    border-radius: 3px;
+    width: 45%;
+    max-width: 600px;
+    border: 1px solid gray;
+}
+
+.close-btn {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    color: white;
+    cursor: pointer;
+}
+
+#delivery-details {
+    display: none; /* hidden by default */
 }
 
 .order {
