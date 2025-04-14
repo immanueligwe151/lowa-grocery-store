@@ -3,6 +3,8 @@ session_start();
 
 $basket = $_SESSION['basket'] ?? [];
 
+$loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
+
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +19,7 @@ $basket = $_SESSION['basket'] ?? [];
         <link rel="icon" href="https://i.postimg.cc/L87TFDYM/lowa-logo.png" type="image/x-icon">
         <link rel="stylesheet" href="./css/styles.css">
         <script>
-            const userLoggedIn = true;
+            const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
             const basketQuantity = <?= isset($_SESSION['basket']) ? array_sum(array_column($_SESSION['basket'], 'quantity')) : 0 ?>;
             let basket = <?= json_encode($_SESSION['basket'] ?? []) ?>;
         </script>

@@ -76,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (document.body.classList.contains('login')) {
+        if (userLoggedIn) {
+            window.location.href = '..';
+        }
+
         fetch('../backend/generate_captcha.php')
         .then(response => response.json())
         .then(data => {
@@ -84,10 +88,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (document.body.classList.contains('my-basket')) {
+        if (!userLoggedIn) {
+            window.location.href = 'login.php';
+        }
         loadBasket();
     }
 
+    if (document.body.classList.contains('my-account')) {
+        if (!userLoggedIn) {
+            window.location.href = 'login.php';
+        }
+    }
+
+    if (document.body.classList.contains('signup')) {
+        if (userLoggedIn) {
+            window.location.href = '..';
+        }
+    }
+
     if (document.body.classList.contains('my-orders')) {
+        if (!userLoggedIn) {
+            window.location.href = 'login.php';
+        }
+
         const orders = document.querySelectorAll('.order');
 
         orders.forEach(order => {

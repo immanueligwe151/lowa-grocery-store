@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+$loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +22,9 @@
         <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         <script type="text/babel" src="./js/signupForm.js"></script>
+        <script>
+            const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
+        </script>
     </head>
     <body class="signup">
         <header>
@@ -25,13 +34,13 @@
 
         <nav>
             <a class="nav-link" href="..">Home</a>
-            <a class="nav-link">Login</a>
+            <a class="nav-link" href="login.php">Login</a>
         </nav>
+        <section>
+            <h2>Signup</h2>
+        </section>
 
         <section>
-            <div>
-                <h3>Signup</h3>
-            </div>
             <div id="signup-root"></div>
         </section>
     </body>

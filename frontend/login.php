@@ -2,6 +2,9 @@
 session_start();
 
 include('../backend/connection.php');
+
+$loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
+
 $email_error = isset($_SESSION['email_error']) ? $_SESSION['email_error'] : null;
 unset($_SESSION['email_error']);
 $password_error = isset($_SESSION['password_error']) ? $_SESSION['password_error'] : null;
@@ -21,6 +24,9 @@ unset($_SESSION['captcha_error'])
         <meta name="keywords" content="grocery, online grocery shopping, cheap, low prices, delivery, pickup, Lowa">
         <link rel="icon" href="https://i.postimg.cc/L87TFDYM/lowa-logo.png" type="image/x-icon">
         <link rel="stylesheet" href="./css/styles.css">
+        <script>
+            const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
+        </script>
     </head>
     <body class="login">
         <header>

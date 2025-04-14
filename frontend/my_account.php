@@ -7,6 +7,8 @@ $basket = $_SESSION['basket'] ?? [];
 
 $customerId = $_SESSION['customer_id'];
 
+$loggedIn = isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'];
+
 $stmt = $conn->prepare("SELECT * FROM `Customers` WHERE customer_id = ?");
 $stmt->bind_param("s", $customerId);
 $stmt->execute();
@@ -27,7 +29,7 @@ $userDetails = $result->fetch_assoc();
         <link rel="icon" href="https://i.postimg.cc/L87TFDYM/lowa-logo.png" type="image/x-icon">
         <link rel="stylesheet" href="./css/styles.css">
         <script>
-            const userLoggedIn = true;
+            const userLoggedIn = <?= isset($_SESSION['user_logged_in']) && $_SESSION['user_logged_in'] ? 'true' : 'false'; ?>;
             const basketQuantity = <?= isset($_SESSION['basket']) ? array_sum(array_column($_SESSION['basket'], 'quantity')) : 0 ?>;
             let basket = <?= json_encode($_SESSION['basket'] ?? []) ?>;
         </script>
